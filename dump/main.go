@@ -78,6 +78,6 @@ func main() {
 		panic(err)
 	}
 	for _, sub := range subscriptions {
-		fmt.Printf("%#v\n\n", sub)
+		fmt.Printf("  %s (%s)\n", sub.ODataID, sub.Destination)
 	}
 }
