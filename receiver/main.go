@@ -1,12 +1,13 @@
 package main
 
 import (
-	"flag"
 	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
+
+	"github.com/dhellmann/redfish-event-experiment/config"
 )
 
 func handler(w http.ResponseWriter, r *http.Request) {
@@ -19,17 +20,16 @@ func handler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	var (
-		endpoint string
-		certFile string
-		keyFile  string
-	)
-	flag.StringVar(&endpoint, "endpoint", ":9090", "endpoint to listen on")
-	flag.StringVar(&certFile, "certfile", "localhost.crt", "TLS certificate file")
-	flag.StringVar(&keyFile, "keyfile", "localhost.key", "TLS key")
-	flag.Parse()
+	appConfig, err := config.LoadFromFile("config.yaml")
+	if err != nil {
+		panic(err)
+	}
 
 	http.HandleFunc("/", handler)
-	fmt.Printf("listening on https://%s\n", endpoint)
-	log.Fatal(http.ListenAndServeTLS(endpoint, certFile, keyFile, nil))
+	fmt.Printf("listening on https://%s\n", appConfig.Receiver.Endpoint)
+	log.Fatal(http.ListenAndServeTLS(
+		appConfig.Receiver.Endpoint,
+		appConfig.Receiver.CertFile,
+		appConfig.Receiver.KeyFile,
+		nil))
 }

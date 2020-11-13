@@ -1,0 +1,9 @@
+# -*- mode: yaml -*-
+bmc:
+  url: https://hostname.domain.com
+  username: user
+  password: 53cr3t
+receiver:
+  endpoint: https://localhost:9090
+  certFile: localhost.crt
+  keyFile: localhost.key

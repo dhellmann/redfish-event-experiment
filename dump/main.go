@@ -1,23 +1,28 @@
 package main
 
 import (
-	"flag"
 	"fmt"
 
 	"github.com/stmcginnis/gofish"
+
+	"github.com/dhellmann/redfish-event-experiment/config"
 )
 
 func main() {
-	config := gofish.ClientConfig{
+	appConfig, err := config.LoadFromFile("config.yaml")
+	if err != nil {
+		panic(err)
+	}
+
+	gofishConfig := gofish.ClientConfig{
+		Endpoint:  appConfig.BMC.URL,
+		Username:  appConfig.BMC.Username,
+		Password:  appConfig.BMC.Password,
 		Insecure:  true,
 		BasicAuth: true,
 	}
-	flag.StringVar(&config.Endpoint, "endpoint", "", "The URL of the BMC")
-	flag.StringVar(&config.Username, "user", "", "The username for authentication")
-	flag.StringVar(&config.Password, "password", "", "The password for authentication")
-	flag.Parse()
 
-	c, err := gofish.Connect(config)
+	c, err := gofish.Connect(gofishConfig)
 	if err != nil {
 		panic(err)
 	}

@@ -5,21 +5,27 @@ import (
 	"fmt"
 
 	"github.com/stmcginnis/gofish"
+
+	"github.com/dhellmann/redfish-event-experiment/config"
 )
 
 func main() {
-	var subscription string
-	config := gofish.ClientConfig{
+	flag.Parse()
+
+	appConfig, err := config.LoadFromFile("config.yaml")
+	if err != nil {
+		panic(err)
+	}
+
+	gofishConfig := gofish.ClientConfig{
+		Endpoint:  appConfig.BMC.URL,
+		Username:  appConfig.BMC.Username,
+		Password:  appConfig.BMC.Password,
 		Insecure:  true,
 		BasicAuth: true,
 	}
-	flag.StringVar(&config.Endpoint, "endpoint", "", "The URL of the BMC")
-	flag.StringVar(&config.Username, "user", "", "The username for authentication")
-	flag.StringVar(&config.Password, "password", "", "The password for authentication")
-	flag.StringVar(&subscription, "sub", "", "The URI of the subscription to delete")
-	flag.Parse()
 
-	c, err := gofish.Connect(config)
+	c, err := gofish.Connect(gofishConfig)
 	if err != nil {
 		panic(err)
 	}
@@ -30,9 +36,11 @@ func main() {
 		panic(err)
 	}
 
-	err = es.DeleteEventSubscription(subscription)
-	if err != nil {
-		panic(err)
+	for _, sub := range flag.Args() {
+		err = es.DeleteEventSubscription(sub)
+		if err != nil {
+			panic(err)
+		}
+		fmt.Printf("deleted %s\n", sub)
 	}
-	fmt.Printf("deleted\n")
 }
