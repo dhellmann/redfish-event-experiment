@@ -1,9 +1,0 @@
-# github.com/stmcginnis/gofish v0.6.0
-## explicit
-github.com/stmcginnis/gofish
-github.com/stmcginnis/gofish/common
-github.com/stmcginnis/gofish/redfish
-github.com/stmcginnis/gofish/swordfish
-# gopkg.in/yaml.v2 v2.3.0
-## explicit
-gopkg.in/yaml.v2

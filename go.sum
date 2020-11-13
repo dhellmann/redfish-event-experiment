@@ -1,5 +1,5 @@
-github.com/stmcginnis/gofish v0.6.0 h1:ZTMR0pNO/cBUEvsUOfY0cK0eqRR2Fb1y9B9U7sEwcK8=
-github.com/stmcginnis/gofish v0.6.0/go.mod h1:t0RUeoOLznx9vExQOeLZUrjU0u3yy0wL4iVMQviUl+k=
+github.com/stmcginnis/gofish v0.6.1-0.20201113210323-e8ea71f4ccbe h1:f4n12YTvG+lXfSQYnlO1gw3sp+jLv3ei3wrQpR5fcDM=
+github.com/stmcginnis/gofish v0.6.1-0.20201113210323-e8ea71f4ccbe/go.mod h1:t0RUeoOLznx9vExQOeLZUrjU0u3yy0wL4iVMQviUl+k=
 gopkg.in/check.v1 v0.0.0-20161208181325-20d25e280405 h1:yhCVgyC4o1eVCa2tZl7eS0r+SDo693bJlVdllGtEeKM=
 gopkg.in/check.v1 v0.0.0-20161208181325-20d25e280405/go.mod h1:Co6ibVJAznAaIkqp8huTwlJQCZ016jof/cbN4VW5Yz0=
 gopkg.in/yaml.v2 v2.3.0 h1:clyUAQHOM3G0M3f5vQj7LuJrETvjVot3Z5el9nffUtU=

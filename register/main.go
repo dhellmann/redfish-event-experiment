@@ -59,8 +59,9 @@ func main() {
 			redfish.StatusChangeEventType,
 		},
 		headers,
-		oem,
 		redfish.RedfishEventDestinationProtocol,
+		"Public",
+		oem,
 	)
 	if err != nil {
 		panic(err)
