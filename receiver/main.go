@@ -10,7 +10,7 @@ import (
 
 func handler(w http.ResponseWriter, r *http.Request) {
 	bodyRaw, _ := ioutil.ReadAll(r.Body)
-	fmt.Printf("%s: %q\n", r.URL, bodyRaw)
+	fmt.Printf("[%s] %s: %q\n", r.Method, r.URL, bodyRaw)
 	w.WriteHeader(http.StatusOK)
 	fmt.Fprint(w, "got it\n")
 }
