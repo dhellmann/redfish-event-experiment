@@ -282,10 +282,12 @@ func GetEventDestination(c common.Client, uri string) (*EventDestination, error)
 
 // subscriptionPayload is the payload to create the event subscription
 type subscriptionPayload struct {
-	Destination string            `json:"Destination"`
-	EventTypes  []EventType       `json:"EventTypes"`
-	HTTPHeaders map[string]string `json:"HttpHeaders,omitempty"`
-	Oem         interface{}       `json:"Oem,omitempty"`
+	Destination string                   `json:"Destination"`
+	EventTypes  []EventType              `json:"EventTypes"`
+	HTTPHeaders map[string]string        `json:"HttpHeaders,omitempty"`
+	Oem         interface{}              `json:"Oem,omitempty"`
+	Protocol    EventDestinationProtocol `json:"Protocol,omitempty"`
+	Context     string                   `json:"Context,omitempty"`
 }
 
 // validateCreateEventDestinationParams will validate
@@ -339,6 +341,7 @@ func CreateEventDestination(
 	eventTypes []EventType,
 	httpHeaders map[string]string,
 	oem interface{},
+	protocol EventDestinationProtocol,
 ) (string, error) {
 
 	// validate input parameters
@@ -356,6 +359,8 @@ func CreateEventDestination(
 	s := &subscriptionPayload{
 		Destination: destination,
 		EventTypes:  eventTypes,
+		Protocol:    protocol,
+		Context:     "Public",
 	}
 
 	// HTTP headers

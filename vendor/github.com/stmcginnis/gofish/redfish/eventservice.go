@@ -293,6 +293,7 @@ func (eventservice *EventService) CreateEventSubscription(
 	eventTypes []EventType,
 	httpHeaders map[string]string,
 	oem interface{},
+	protocol EventDestinationProtocol,
 ) (string, error) {
 	if len(strings.TrimSpace(eventservice.subscriptions)) == 0 {
 		return "", fmt.Errorf("empty subscription link in the event service")
@@ -304,7 +305,9 @@ func (eventservice *EventService) CreateEventSubscription(
 		destination,
 		eventTypes,
 		httpHeaders,
-		oem)
+		oem,
+		protocol,
+	)
 }
 
 // DeleteEventSubscription deletes a specific subscription using the event service.
