@@ -19,11 +19,17 @@ func handler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	var endpoint string
+	var (
+		endpoint string
+		certFile string
+		keyFile  string
+	)
 	flag.StringVar(&endpoint, "endpoint", ":9090", "endpoint to listen on")
+	flag.StringVar(&certFile, "certfile", "localhost.crt", "TLS certificate file")
+	flag.StringVar(&keyFile, "keyfile", "localhost.key", "TLS key")
 	flag.Parse()
 
 	http.HandleFunc("/", handler)
-	fmt.Printf("listening on %s\n", endpoint)
-	log.Fatal(http.ListenAndServe(endpoint, nil))
+	fmt.Printf("listening on https://%s\n", endpoint)
+	log.Fatal(http.ListenAndServeTLS(endpoint, certFile, keyFile, nil))
 }
